@@ -27,3 +27,19 @@ class UserManager:
             if user["id"] == user_id:
                 return user
         return None
+    # 找着了就改年龄，没找到就说调用方没改成
+    def update_age(self, user_id, new_age):
+        user = self.get_user(user_id)
+        if user is None:
+            return False
+
+        user["age"] = new_age
+        return True
+
+    # 找到对应用户就删掉，最后说一声删没删成
+    def remove_user(self, user_id):
+        for index, user in enumerate(self._users):
+            if user["id"] == user_id:
+                del self._users[index]
+                return True
+        return False
