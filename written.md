@@ -68,7 +68,7 @@
    - B. `7  5`
    - C. `5  5`
    - D. `5  7`
-个人反馈：这里两个空格算一个吗？len出来是不是9呢o~O？
+#个人反馈：这里两个空格算一个吗？len出来是不是9呢o~O？
 
 5. 以下代码的执行结果是？
 
@@ -208,18 +208,17 @@ logs = [
 
 答：Q1：
 ```python
-       errors = [log for log in logs if log["level"] == "ERROR"] 
-       print(errors)                                          
-       #或者不引入变量,直接[log for log in logs if log["level"] == "ERROR"]应该简单一点
+errors = [log for log in logs if log["level"] == "ERROR"]
+print(errors)
 ```
-    Q2：
+Q2：
 ```python
-        counts = {}
-        for log in logs:
-            user = log["user"]
-            counts[user] = counts.get(user, 0) + 1   
+counts = {}
+for log in logs:
+    user = log["user"]
+    counts[user] = counts.get(user, 0) + 1
 ```
-    输出： "张三": 2, "李四": 2, "王五": 1
+输出：{"张三": 2, "李四": 2, "王五": 1}
 
     Q3：因为`len(logs)` 只能数出列表里出现了几条log，不能区分这些log分别属于谁；
         要统计每个user出现次数，就要遍历列表里的每条log，看到某user后把对应的次数加上1
@@ -239,9 +238,11 @@ Day_10 中你写过 `safe_int(s)` 函数：能转就返回整数，不能转就�
 
 答：
 ```python
-    def safe_divide(a, b):
+def safe_divide(a, b):
     try:
-        return float(a) / float(b)
+        x = float(a)
+        y = float(b)
+        return x / y
     except (ValueError, ZeroDivisionError):
         return None
 ```

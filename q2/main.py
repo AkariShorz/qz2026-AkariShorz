@@ -45,9 +45,9 @@ class UserManager:
                 return True
         return False
 
-    # 按原来的顺序给一份列表副本，外面改它不影响内部数据
+    # 按原来的顺序给一份列表副本，并复制每个用户字典，避免外部修改影响内部数据
     def list_users(self):
-        return self._users.copy()
+        return [user.copy() for user in self._users]
 
     # 把现在这批用户存进 JSON 文件，中文也照样保留
     def save_to_json(self, filepath):
