@@ -1,0 +1,22 @@
+{% extends "articles/base.html" %}
+{% block title %}文章统计{% endblock %}
+{% block content %}
+<h1>文章统计</h1>
+<section class="panel">
+  <p>文章总数：{{ article_count }}</p>
+  <p>总浏览量：{{ view_count }}</p>
+  <h2>按状态统计</h2>
+  <ul>
+    <li>草稿：{{ status_counts.draft|default:0 }}</li>
+    <li>已发布：{{ status_counts.published|default:0 }}</li>
+    <li>已归档：{{ status_counts.archived|default:0 }}</li>
+  </ul>
+</section>
+<section class="panel">
+  <h2>最近 10 条审计日志</h2>
+  <ol>
+    {% for log in recent_logs %}<li>{{ log.get_action_display }} · {{ log.article|default:"文章已删除" }} · {{ log.actor|default:"系统" }} · {{ log.timestamp|date:"Y-m-d H:i:s" }}</li>
+    {% empty %}<li>暂无审计记录。</li>{% endfor %}
+  </ol>
+</section>
+{% endblock %}

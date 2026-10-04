@@ -1,0 +1,47 @@
+{% extends "articles/base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ article.title }}</h1>
+  <p class="muted">{{ article.get_status_display }} · {{ article.author }} · {{ article.created_at|date:"Y-m-d H:i" }} · {{ article.views }} 次浏览</p>
+  {% if article.cover_thumbnail %}<p><img src="{{ article.cover_thumbnail.url }}" alt="{{ article.title }} 封面缩略图"></p>{% endif %}
+  <div>{{ article.content|linebreaks }}</div>
+  {% if is_author %}
+    <p><a href="{% url 'articles:edit' article.pk %}">编辑文章</a></p>
+    <form method="post" action="{% url 'articles:delete' article.pk %}">{% csrf_token %}<button type="submit">删除文章</button></form>
+  {% endif %}
+</article>
+
+<section class="panel">
+  <h2>附件</h2>
+  <ul>
+    {% for attachment in attachments %}
+      <li>
+        <a href="{% url 'articles:attachment_download' attachment.pk %}">{{ attachment.file_name }}</a>
+        <span class="muted">· {{ attachment.downloads }} 次下载 · {{ attachment.uploaded_at|date:"Y-m-d H:i" }}</span>
+        {% if is_author %}
+          <form method="post" action="{% url 'articles:attachment_delete' attachment.pk %}" style="display:inline">{% csrf_token %}<button type="submit">删除</button></form>
+        {% endif %}
+      </li>
+    {% empty %}<li>还没有附件。</li>{% endfor %}
+  </ul>
+  {% if is_author %}
+    <h3>上传附件</h3>
+    <form method="post" enctype="multipart/form-data" action="{% url 'articles:attachment_upload' article.pk %}">
+      {% csrf_token %}{{ attachment_form.as_p }}<button type="submit">上传</button>
+    </form>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>操作审计</h2>
+  <ol>
+    {% for log in audit_logs %}
+      <li>
+        {{ log.get_action_display }} · {{ log.timestamp|date:"Y-m-d H:i:s" }} · {{ log.actor|default:"系统" }}
+        <pre>{{ log.changes|pprint }}</pre>
+      </li>
+    {% empty %}<li>暂无审计记录。</li>{% endfor %}
+  </ol>
+</section>
+{% endblock %}
