@@ -68,6 +68,7 @@
    - B. `7  5`
    - C. `5  5`
    - D. `5  7`
+个人反馈：这里两个空格算一个吗？len出来是不是9呢o~O？
 
 5. 以下代码的执行结果是？
 
@@ -162,7 +163,8 @@
 
 ### 答案
 
-（在此填写，格式：`1. B  2. B  3. B  4. B  5. A  6. B  7. B  8. B  9. B  10. B`）
+`1. B  2. B  3. B  4. B  5. B  6. B  7. B  8. B  9. B  10. B` 
+#全B......吗，有点不太敢相信QΔQ，哥我害怕
 
 ---
 
@@ -180,7 +182,7 @@ b = a.copy()
 import copy
 c = copy.deepcopy(a)
 ```
-答: Q1: a为原始列表，b = a.copy()是浅拷贝，复制最外层的列表，二者共享[[1, 2], [3, 4]]，c 是深拷贝，外层和子列表都独立复制
+答: Q1: a为原始列表，b = a.copy()是浅拷贝，only复制最外层列表，而共享内部子列表，c是深拷贝，外层和子列表都独立复制
 
     Q2: 执行 `a[0].append(99)` 后,得到 b == [[1, 2, 99], [3, 4]] 而 c == [[1, 2], [3, 4]]
     原因：ab共享一个子列表，c独立，修改a会影响b，但不会影响c
@@ -206,7 +208,7 @@ logs = [
 
 答：Q1：
 ```python
-       error = [log for log in logs if log["level"] == "ERROR"] 
+       errors = [log for log in logs if log["level"] == "ERROR"] 
        print(errors)                                          
        #或者不引入变量,直接[log for log in logs if log["level"] == "ERROR"]应该简单一点
 ```
