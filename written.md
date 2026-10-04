@@ -68,6 +68,7 @@
    - B. `7  5`
    - C. `5  5`
    - D. `5  7`
+本人留言：这里空格不是有两个吗？？len出来是不是9呢 o~O？
 
 5. 以下代码的执行结果是？
 
@@ -162,7 +163,7 @@
 
 ### 答案
 
-（在此填写，格式：`1. B  2. B  3. B  4. B  5. A  6. B  7. B  8. B  9. B  10. B`）
+`1. B  2. B  3. B  4. B  5. B  6. B  7. B  8. B  9. B  10. B` #我去了哥 我这填的怎么全是B啊 我害怕oΔo
 
 ---
 
@@ -180,7 +181,7 @@ b = a.copy()
 import copy
 c = copy.deepcopy(a)
 ```
-答: Q1: a为原始列表，b = a.copy()是浅拷贝，复制最外层的列表，二者共享[[1, 2], [3, 4]]，c 是深拷贝，外层和子列表都独立复制
+答: Q1: a为原始列表，b = a.copy()是浅拷贝，复制最外层的列表，二者共享内部子列表，c 是深拷贝，外层和子列表都独立复制
 
     Q2: 执行 `a[0].append(99)` 后,得到 b == [[1, 2, 99], [3, 4]] 而 c == [[1, 2], [3, 4]]
     原因：ab共享一个子列表，c独立，修改a会影响b，但不会影响c
@@ -206,16 +207,17 @@ logs = [
 
 答：Q1：
 ```python
-       error = [log for log in logs if log["level"] == "ERROR"] 
-       print(errors)                                          
-       #或者不引入变量,直接[log for log in logs if log["level"] == "ERROR"]应该简单一点
+errors = [log for log in logs if log["level"] == "ERROR"]
+print(errors)
+# 也可以直接使用列表推导式，不单独保存变量，应该看上去会简洁一点
+# [log for log in logs if log["level"] == "ERROR"]
 ```
     Q2：
 ```python
-        counts = {}
-        for log in logs:
-            user = log["user"]
-            counts[user] = counts.get(user, 0) + 1   
+counts = {}
+for log in logs:
+    user = log["user"]
+    counts[user] = counts.get(user, 0) + 1
 ```
     输出： "张三": 2, "李四": 2, "王五": 1
 
@@ -237,10 +239,10 @@ Day_10 中你写过 `safe_int(s)` 函数：能转就返回整数，不能转就�
 
 答：
 ```python
-    def safe_divide(a, b):
+def safe_divide(a, b):
     try:
         return float(a) / float(b)
     except (ValueError, ZeroDivisionError):
         return None
 ```
-原因：可能存在字符串无法转换成数字，或除数为0的情况，`try/except` 可以先直接转换并计算，如果遇到这两种错误时再统一返回 `None`，就避免需要自己提前检查的麻烦
+原因：可能存在字符串无法转换成数字，或除数为0的情况，`try/except` 可以先直接转换并计算，如果遇到这两种错误时再统一返回 `None`，就避免需要自己提前检查一遍的麻烦
