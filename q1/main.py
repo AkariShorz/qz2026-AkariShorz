@@ -53,3 +53,5 @@ if __name__ == "__main__":
     parser.add_argument("filepath", nargs="?", default="app.jsonl", help="待分析的 .jsonl 文件路径")
     args = parser.parse_args()
     print(json.dumps(analyze_log(args.filepath), ensure_ascii=False, indent=2))
+
+#抱歉，一开始做的时候没有看到要阶段性提交，就一次性提交了，后面按阶段性提交，sorrrry！！
