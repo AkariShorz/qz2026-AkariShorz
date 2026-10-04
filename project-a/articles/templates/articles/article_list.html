@@ -1,0 +1,15 @@
+{% extends "articles/base.html" %}
+{% block title %}文章列表{% endblock %}
+{% block content %}
+<h1>文章列表</h1>
+{% for article in articles %}
+  <article>
+    <h2><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></h2>
+    <p class="muted">{{ article.get_status_display }} · {{ article.author }} · {{ article.created_at|date:"Y-m-d H:i" }} · {{ article.views }} 次浏览</p>
+    <p>{{ article.content|truncatechars:180 }}</p>
+    {% if article.is_deleted %}<strong>已删除</strong>{% endif %}
+  </article>
+{% empty %}
+  <p>暂时没有可查看的文章。</p>
+{% endfor %}
+{% endblock %}

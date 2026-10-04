@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}文章管理系统{% endblock %}</title>
+  <style>
+    body { max-width: 900px; margin: 2rem auto; padding: 0 1rem; font: 16px/1.6 system-ui, sans-serif; color: #202938; }
+    nav { display: flex; gap: 1rem; align-items: center; border-bottom: 1px solid #d9dee7; padding-bottom: 1rem; }
+    nav form { margin-left: auto; } a { color: #1456a0; } article, .panel { border: 1px solid #d9dee7; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+    label { display: block; font-weight: 600; margin-top: .8rem; } input, textarea, select { max-width: 100%; padding: .45rem; }
+    button { padding: .45rem .8rem; cursor: pointer; } .muted { color: #697586; } .message { padding: .5rem; background: #eef6ff; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'articles:list' %}">文章首页</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'articles:create' %}">新建文章</a>
+      <a href="{% url 'articles:stats' %}">统计</a>
+      <span class="muted">{{ user.get_username }}</span>
+      <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit">退出登录</button></form>
+    {% else %}
+      <a href="{% url 'login' %}">登录</a>
+      <a href="{% url 'articles:register' %}">注册</a>
+    {% endif %}
+  </nav>
+  {% for message in messages %}<p class="message">{{ message }}</p>{% endfor %}
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>
