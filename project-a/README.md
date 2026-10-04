@@ -47,6 +47,16 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## 检查与测试
+
+在本目录执行 Django 配置、迁移和文章应用测试：
+
+```bash
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test articles
+```
+
  ## 运行
 
 在本目录(project-a)执行：
