@@ -10,3 +10,13 @@ def analyze_log(file_path: str) -> dict:
         "by_user": {},
         "last_error": None,
     }#先准备一个空的统计结果
+
+    try:
+        file = open(file_path, "r", encoding="utf-8")#让我们说中文
+    except FileNotFoundError:
+        # 路径不存在时返回空统计就行，别让程序给报错退出了
+        return stats
+
+    with file:
+        for line in file:#逐条处理，没必要一次把整个文件都放进内存
+            pass
