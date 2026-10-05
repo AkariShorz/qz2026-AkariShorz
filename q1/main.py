@@ -45,3 +45,9 @@ def analyze_log(file_path: str) -> dict:
                 stats["last_error"] = message
 
     return stats
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="统计 JSON Lines 格式的日志")
+    parser.add_argument("filepath", nargs="?", default="app.jsonl", help="待分析的 .jsonl 文件路径")
+    args = parser.parse_args()
+    print(json.dumps(analyze_log(args.filepath), ensure_ascii=False, indent=2))
